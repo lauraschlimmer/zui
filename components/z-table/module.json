@@ -1,0 +1,5 @@
+{
+  "require_html": ["z-table.html"],
+  "require_js": ["z-table.js"],
+  "require_css": ["z-table.css"]
+}

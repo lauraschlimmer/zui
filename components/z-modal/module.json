@@ -1,0 +1,4 @@
+{
+  "require_js": ["z-modal.js"],
+  "require_css": ["z-modal.css"]
+}

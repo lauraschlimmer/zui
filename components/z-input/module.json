@@ -1,0 +1,4 @@
+{
+  "require_js": ["z-input.js"],
+  "require_css": ["z-input.css"]
+}

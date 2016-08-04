@@ -1,0 +1,5 @@
+{
+  "require_html": ["z-checkbox.html"],
+  "require_js": ["z-checkbox.js"],
+  "require_css": ["z-checkbox.css"]
+}

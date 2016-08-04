@@ -1,0 +1,4 @@
+{
+  "require_js": ["z-button.js"],
+  "require_css": ["z-button.css"]
+}

@@ -1,0 +1,14 @@
+{
+  "require_js": [
+    "codemirror.js",
+    "codemirror-sql.js",
+    "z-codeeditor.js"
+  ],
+  "require_html": [
+    "z-codeeditor.html"
+  ],
+  "require_css": [
+    "codemirror.css",
+    "z-codeeditor.css"
+  ]
+}

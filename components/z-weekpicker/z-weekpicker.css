@@ -1,0 +1,120 @@
+z-weekpicker {
+  display: inline-block;
+}
+
+z-weekpicker z-weekpicker-field {
+  position: relative;
+  display: inline-block;
+  line-height: 1.3em;
+  padding: 0.6em 10px;
+  margin: 0;
+  -webkit-tap-highlight-color: rgba(255, 255, 255, 0);
+  text-align: left;
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 0.2857rem;
+  box-shadow: none;
+  cursor: pointer;
+}
+
+z-weekpicker z-weekpicker-field i {
+  margin: 2px 0 0 8px;
+}
+
+z-weekpicker z-weekpicker-flyout {
+  position: absolute;
+  display: none;
+  top: 100%;
+  right: 0;
+  left: -12px;
+  padding: 7px;
+  margin-top: 6px;
+  border: 1px solid rgba(39,41,43,.15);
+  border-radius: 3px;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.08);
+  background: #fff;
+  z-index: 11;
+}
+
+z-weekpicker.active z-weekpicker-flyout {
+  display: block;
+}
+
+z-weekpicker z-weekpicker-flyout:before,
+z-weekpicker z-weekpicker-flyout:after {
+  content: ' ';
+  height: 0;
+  position: absolute;
+  width: 0;
+  border: 13px solid transparent;
+  left: 94px;
+}
+
+z-weekpicker z-weekpicker-flyout:before {
+  border-bottom-color: #fff;
+  top: -25px;
+  z-index: 2;
+}
+
+z-weekpicker z-weekpicker-flyout:after {
+  border-bottom-color: #bbb;
+  top: -26px;
+  z-index: 1;
+}
+
+z-weekpicker z-weekpicker-flyout div {
+  overflow: auto;
+}
+
+z-weekpicker z-weekpicker-flyout div:first-child {
+  margin-bottom: 5px;
+}
+
+z-weekpicker z-weekpicker-flyout label {
+  font-size: 12px;
+  line-height: 30px;
+  font-weight: 400;
+  vertical-align: top;
+  margin-right: 5px;
+  float: left;
+  width: 55px;
+}
+
+z-weekpicker z-weekpicker-flyout input.z-input {
+  font-size: 12px;
+  float: left;
+  width: 65px;
+}
+
+z-weekpicker z-weekpicker-flyout button.apply {
+  float: right;
+  margin-top: 13px;
+}
+
+
+.zbase_app z-weekpicker z-weekpicker-field {
+  background-color: #F4F4F4;
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#fefefe), to(#e9e9e9));
+  background-image: -webkit-linear-gradient(top, #fefefe, #e9e9e9);
+  background-image: -moz-linear-gradient(top, #fefefe, #e9e9e9);
+  background-image: -ms-linear-gradient(top, #fefefe, #e9e9e9);
+  background-image: -o-linear-gradient(top, #fefefe, #e9e9e9);
+  background-image: linear-gradient(top, #fefefe, #e9e9e9);
+  filter: progid:DXImageTransform.Microsoft.gradient(startColorStr='#fefefe', EndColorStr='#e9e9e9');
+  font-size: 12px;
+  color: #333;
+  border: 1px solid #bbb;
+  box-shadow: 0 0 2px rgba(0,0,0,.1);
+  font-weight: 500;
+}
+
+.zbase_app z-weekpicker z-weekpicker-field:hover {
+  background-image: -webkit-gradient(linear, left top, left bottom, from(#f4f4f4), to(#e0e0e0));
+  background-image: -webkit-linear-gradient(top, #f4f4f4, #e0e0e0);
+  background-image: -moz-linear-gradient(top, #f4f4f4, #e0e0e0);
+  background-image: -ms-linear-gradient(top, #f4f4f4, #e0e0e0);
+  background-image: -o-linear-gradient(top, #f4f4f4, #e0e0e0);
+  background-image: linear-gradient(top, #f4f4f4, #e0e0e0);
+  box-shadow: 0 0 2px rgba(0,0,0,.2);
+}

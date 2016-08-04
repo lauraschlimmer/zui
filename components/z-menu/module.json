@@ -1,0 +1,6 @@
+{
+  "require_html": ["z-menu.html"],
+  "require_js": ["z-menu.js"],
+  "require_css": ["z-menu.css"]
+}
+

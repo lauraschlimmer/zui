@@ -1,0 +1,4 @@
+{
+  "require_js": ["z-tooltip.js"],
+  "require_css": ["z-tooltip.css"]
+}
