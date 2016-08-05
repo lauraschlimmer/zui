@@ -1,5 +1,0 @@
-{
-  "require_html": ["z-progressbar.html"],
-  "require_js": ["z-progressbar.js"],
-  "require_css": ["z-progressbar.css"]
-}

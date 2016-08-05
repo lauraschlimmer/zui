@@ -1,5 +1,0 @@
-{
-  "require_js": ["z-calendar-group.js"],
-  "require_html": ["z-calendar-group.html"],
-  "require_css": ["z-calendar-group.css"]
-}

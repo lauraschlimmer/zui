@@ -1,9 +1,0 @@
-{
-  "require_js": ["z-daterangepicker.js"],
-  "require_html": ["z-daterangepicker.html"],
-  "require_css": ["z-daterangepicker.css"],
-  "require_modules": [
-    "widgets/z-dropdown",
-    "widgets/z-calendar-group"
-  ]
-}

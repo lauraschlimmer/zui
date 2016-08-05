@@ -1,5 +1,0 @@
-{
-  "require_html": ["z-chart.html"],
-  "require_js": ["z-chart.js"],
-  "require_css": ["z-chart.css"]
-}
