@@ -45,20 +45,6 @@ var DropDownComponent = function() {
       header_elem.appendChild(icon);
     }
 
-    //render apply button
-    if (this.hasAttribute("data-multiselect")) {
-      var button_container = document.createElement("z-dropdown-button");
-      var button = document.createElement("button");
-      button.className = "z-button primary"
-      button.innerHTML = "Apply";
-      button_container.appendChild(button);
-      this.querySelector("z-dropdown-flyout").insertBefore(
-        button_container,
-        items);
-
-      button.addEventListener("click", base.hideDropdown.bind(base), false);
-    }
-
     header_elem.addEventListener('click', function(e) {
       e.stopPropagation();
       base.toggleDropdown();
@@ -81,7 +67,29 @@ var DropDownComponent = function() {
       e.stopPropagation();
     }, false);
 
+    this.init();
     this.__applyAttributes();
+  };
+
+  this.init = function() {
+    if (!this.hasAttribute("data-multiselect") ||
+        !this.querySelector("z-dropdown-flyout")) {
+      return;
+    }
+
+    var base = this;
+
+    //render apply button
+    var button_container = document.createElement("z-dropdown-button");
+    var button = document.createElement("button");
+    button.className = "z-button primary"
+    button.innerHTML = "Apply";
+    button_container.appendChild(button);
+    this.querySelector("z-dropdown-flyout").insertBefore(
+      button_container,
+      this.querySelector("z-dropdown-items"));
+
+    button.addEventListener("click", base.hideDropdown.bind(base), false);
   };
 
   this.detachedCallback = function() {
@@ -118,10 +126,6 @@ var DropDownComponent = function() {
     * @param {Array} values
     */
   this.setValue = function(values) {
-    if (!(values instanceof Array)) {
-      values = [values];
-    }
-
     var _this = this;
 
     var selected_items = this.querySelectorAll("z-dropdown-item[data-selected]");
