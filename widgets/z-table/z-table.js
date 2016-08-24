@@ -71,6 +71,22 @@ zTable = function(table) {
     return result;
   }
 
+  this.highlightColumn = function(column_name) {
+    this.unhiglightColumn();
+
+    var cells = document.querySelectorAll("tr [data-key='" + column_name + "']");
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].classList.add("highlight");
+    }
+  }
+
+  this.unhiglightColumn = function() {
+    var cells = document.querySelectorAll("tr .highlight");
+    for (var i = 0; i < cells.length; i++) {
+      cells[i].classList.remove("highlight");
+    }
+  }
+
   this.onClick = function(fn) {
     on_click.push(fn);
   }
@@ -156,6 +172,7 @@ zTable = function(table) {
 
       var th = document.createElement("th");
       th.setAttribute("align", c.align || "left");
+      th.setAttribute("data-key", c.key);
       th.innerHTML = c.title;
 
       if (c.sortable) {
@@ -214,6 +231,7 @@ zTable = function(table) {
 
         var td = document.createElement("td");
         td.setAttribute("align", cell.align || col.align || "left");
+        td.setAttribute("data-key", col.key);
         if (cell.class) {
           td.setAttribute("class", cell.class);
         }
