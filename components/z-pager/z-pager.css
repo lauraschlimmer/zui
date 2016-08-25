@@ -6,7 +6,8 @@
 
 z-pager,
 .z-pager {
-  display:block;
+  display: block;
+  overflow: auto;
   line-height: 1.3em;
   color: rgba(0,0,0,.8);
   -webkit-tap-highlight-color: transparent;
