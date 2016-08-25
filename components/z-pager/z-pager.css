@@ -33,10 +33,10 @@ z-pager-title,
   font-weight: 500;
 }
 
-z-pager-tooltip-for,
-z-pager-tooltip-back,
-.z-pager-tooltip-back,
-.z-pager-tooltip-for {
+z-pager-tooltip,
+z-pager-tooltip,
+.z-pager-tooltip,
+.z-pager-tooltip {
   display:inline;
   float:left;
   padding: 6px 12px;
@@ -46,40 +46,39 @@ z-pager-tooltip-back,
   line-height: 1.3em;
 }
 
-z-pager-tooltip-back,
-.z-pager-tooltip-back {
+z-pager-tooltip[data-type='back'],
+.z-pager-tooltip-back[data-type='back'] {
   border-top-left-radius: 4px;
   border-bottom-left-radius: 4px;
   cursor: pointer;
 }
 
-z-pager-tooltip-for,
-.z-pager-tooltip-for {
+z-pager-tooltip[data-type='for'],
+.z-pager-tooltip[data-type='for'] {
   border-top-right-radius: 4px;
   border-bottom-right-radius: 4px;
   cursor: pointer;
 }
 
-z-pager-tooltip-back:before,
-.z-pager-tooltip-back:before {
+z-pager-tooltip[data-type='back']:before,
+.z-pager-tooltip[data-type='back']:before {
   line-height: 1.3em;
   font-family: FontAwesome;
   content: "\f100";
 }
 
-z-pager-tooltip-for:before,
-.z-pager-tooltip-for:before {
+z-pager-tooltip[data-type='for']:before,
+.z-pager-tooltip[data-type='for']:before {
   font-family: FontAwesome;
   content: "\f101";
 }
 
 
-z-pager-tooltip-for[data-disabled],
-.z-pager-tooltip-for[data-disabled],
-z-pager-tooltip-back[data-disabled],
-.z-pager-tooltip-back[data-disabled] {
+z-pager-tooltip.disabled,
+.z-pager-tooltip.disabled {
   cursor: initial;
   opacity: 0.5;
+  pointer-events: none;
 }
 
 z-pager .pager {
