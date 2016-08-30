@@ -228,3 +228,14 @@ zURLUtil.comparePaths = function(a, b) {
     params: Object.keys(params_changed)
   };
 }
+
+zURLUtil.joinPaths = function(base_path) {
+  var path_parts = [base_path];
+
+  //further arguments are parts to add to the path to
+  for (i = 1; i < arguments.length; i++) {
+    path_parts.push(encodeURIComponent(arguments[i]));
+  }
+
+  return path_parts.join("/");
+}
