@@ -62,6 +62,23 @@ zDateUtil.getMilliTimestamp = function(timestamp) {
   return timestamp;
 }
 
+zDateUtil.daysInMonth = function(month, year) {
+  if (month == 2) {
+    return (28 + DateUtil.leapYearOffset());
+  }
+
+  return (31 - (month - 1) % 7 % 2);
+};
+
+zDateUtil.leapYearOffset = function(year) {
+  //year is leap year
+  if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
+    return 1;
+  }
+
+  return 0;
+};
+
 zDateUtil.printTimeAgo = function(timestamp) {
   var test = timestamp + "";
   var now = Date.now();
