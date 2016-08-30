@@ -9,28 +9,11 @@
   <http://www.gnu.org/licenses/>.
 -->
 <template id="z-calendar-base-tpl">
-  <table>
-    <tr>
-      <th>Mo</th>
-      <th>Tu</th>
-      <th>We</th>
-      <th>Th</th>
-      <th>Fr</th>
-      <th>Sa</th>
-      <th>Su</th>
-    </tr>
-    <tr name="month_header">
-      <td><i class='fa fa-chevron-left'></i></td>
-      <td colspan='5'>
-        <b class='month_header'></b>
-      </td>
-      <td><i class='fa fa-chevron-right'></i></td>
-    </tr>
-    <tr class="week week0"></tr>
-    <tr class="week week1"></tr>
-    <tr class="week week2"></tr>
-    <tr class="week week3"></tr>
-    <tr class="week week4"></tr>
-    <tr class="week week5"></tr>
+  <table class='calendar' cellspacing='0' cellpadding='0'>
+    <thead>
+      <tr class="month_header"><td colspan='8'></td></tr>
+    </thead>
+    <tbody>
+    </tbody>
   </table>
 </template>

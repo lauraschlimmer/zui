@@ -9,135 +9,43 @@
  * <http://www.gnu.org/licenses/>.
  */
 var CalendarComponent = function() {
-  var kNumDaysPerWeek = 7;
-  var kNumWeeks = 6;
-  var now = new Date();
-
   var default_opts = {
-    /* the month to render */
-    month: now.getMonth(),
-    /* the year to render */
-    year: now.getFullYear(),
-    selection: {
-      /* the timestamp of the begin of the selection */
-      begin: null,
-      /* the timestamp of the end of the selection */
-      end: null
-    },
-    translations: {
+    /* the timestamp of the first day of the month to render */
+    begin: null
+    i18n: {
       months: ["January", "February", "March", "April", "June", "July",
           "August","September", "November", "Dezember"],
       weekdays: ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
     }
   };
-
-
-  var opts;
-  var this_;
-
+  
   this.createdCallback = function() {
-    this_ = this;
-    var tpl = zTemplateUtil.getTemplate("z-calendar-base-tpl");
+    var tpl = zTemplateUtil("z-calendar-base-tpl");
     this.appendChild(tpl);
 
     this.init();
   };
 
-  this.setConfig = function(config) {
-    opts = zObjectUtil.merge(config, default_opts);
-  }
+  this.attributeChangedCallback = function(attr, old_val, new_val) {
+    switch (attr) {
+      case 'data-timestamp':
+        return this.render(this.getTimeStamp(attr));
 
-  this.render = function() {
-    if (!zObjectUtil.isObject(opts)) {
-      opts = default_opts;
+      case 'data-selected':
+      case 'data-from':
+      case 'data-until':
+        return this.render(this.getTimeStamp('data-timestamp'));
+      default:
+        break;
     }
-
-    var body = this_.querySelector("tbody");
-    console.log(this_, body);
-    zDomUtil.clearChildren(body);
-
-    /* render weekdays header */
-    var header = document.createElement("tr");
-    for (var i = 0; i < kNumDaysPerWeek; i++) {
-      var td = document. createElement("td");
-      td.innerHTML = opts.translations.weekdays[i] ?
-          opts.translations.weekdays[i] : default_opts.translations.weekdays[i];
-
-      header.appendChild(td);
-    }
-
-    body.appendChild(header);
-
-    /* get the days of the previous month*/
-    var tr = document.createElement("tr");
-    var rendered_days = renderDaysOfPreviousMonth(tr);
-    body.appendChild(tr);
-
-    /* render weeks of month to display */
-    var days_in_month = zDateUtil.daysInMonth(opts.month, opts.year);
-    var day = 0;
-    for (var i = 0; i < kNumWeeks && day < days_in_month; i++) {
-      tr = document.createElement("tr");
-
-      for (var j = 0; j < kNumDaysPerWeek && day < days_in_month; j++) {
-        var td = document.createElement("td");
-        day++
-        td.innerHTML = day;
-        tr.appendChild(td);
-      }
-
-      body.appendChild(tr);
-      tr = null;
-    }
-
-    rendered_days += days_in_month;
-
-    /* render days of next month */
-    var days_left = kNumWeeks * kNumDaysPerWeek - rendered_days;
-    for (var i = 0; i < days_left; i++) {
-      if (tr == null) {
-        tr = document.createElement("tr");
-        body.appendChild(tr);
-      }
-
-      var td = document.createElement("td");
-      td.innerHTML = i + 1;
-      tr.appendChild(td);
-    }
-  }
-
-
-/***************************** private *********************************/
-
-  var renderDaysOfPreviousMonth = function(tr) {
-    /* month and year of the previous month */
-    var prev_month = opts.month == 0 ? 11 : opts.month - 1;
-    var year_prev_month = opts.month == 11 ? 11 : opts.month - 1;
-    var days_in_prev_month = zDateUtil.daysInMonth(prev_month, year_prev_month);
-
-    /* day of the week (0-6) of the first day of the month to render */
-    var weekday = new Date(opts.year, opts.month).getDay();
-
-    //FIXME
-    if (weekday == 0) weekday = 6;
-    if (weekday == 1) weekday = 7;
-
-    var i = 0;
-    for ( ; i < weekday; i++) {
-      var td = document.createElement("td");
-      td.innerHTML = days_in_prev_month - i;
-      tr.appendChild(td);
-    }
-
-    return i;
-  }
+  };
 
   this.init = function() {
-    //this.render(this.getTimeStamp('data-timestamp'));
+    this.render(this.getTimeStamp('data-timestamp'));
 
-    //if (this.getAttribute('data-month-header') != "false") {
-    //  this.observeMonthSelectors();
-    //}
+    if (this.getAttribute('data-month-header') != "false") {
+      this.observeMonthSelectors();
+    }
   };
 
   //render previous/next month onclick
@@ -154,8 +62,28 @@ var CalendarComponent = function() {
     };
   };
 
+  // update date object and render header and weeks
+  this.render = function(timestamp) {
+    this.date = DateUtil.getDateObject(timestamp, 'date', true);
+    this.renderMonthHeader();
+    this.renderWeeks();
+  };
 
   this.renderMonthHeader = function() {
+    var human_month = [
+      "January",
+      "February",
+      "March",
+      "April",
+      "May",
+      "June",
+      "July",
+      "August",
+      "September",
+      "October",
+      "November",
+      "December"
+    ];
 
     if (this.getAttribute('data-month-header') != "false") {
       this.querySelector('.month_header').innerHTML = 
