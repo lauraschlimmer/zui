@@ -3,7 +3,7 @@
 zui is a small HTML5 web components library that helps building websites fast.
 It consits of components that are reusable UI elements.
 
-##Example
+## Example
 
     <z-dropdown>
       <z-dropdown-items>
