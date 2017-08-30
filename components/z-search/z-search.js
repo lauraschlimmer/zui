@@ -1,278 +1,123 @@
-/**
- * This file is part of the "FnordMetric" project
- *   Copyright (c) 2014 Laura Schlimmer
- *   Copyright (c) 2014 Paul Asmuth, Google Inc.
- *
- * FnordMetric is free software: you can redistribute it and/or modify it under
- * the terms of the GNU General Public License v3.0. You should have received a
- * copy of the GNU General Public License along with this program. If not, see
- * <http://www.gnu.org/licenses/>.
- */
-var SearchComponent = function() {
-  this.createdCallback = function() {
-    var input = this.querySelector("z-input");
-    var icon = this.querySelector("z-input-icon");
-    var base = this;
 
-    var value_length = 0;
+class zSearch extends HTMLElement {
+  constructor(config) {
+    super();
+  }
 
-    if (!input) {
-      input = document.createElement("z-input");
-      this.insertBefore(input, this.firstChild);
-    }
+  init(config) {
+    config = config || {};
 
-    if (icon) {
-      icon.addEventListener('click', function() {
-        base.submitSearch(input.getValue());
-      }, false);
-    }
+    let tpl = zTemplateUtil.getTemplate("z-search-tpl");
+    zDomUtil.replaceContent(this, tpl);
 
+    let input = this.querySelector("input");
 
-    input.addEventListener('keyup', function(e) {
+    input.addEventListener('keyup', (e) => {
       switch (e.keyCode) {
-        //Enter
-        case 13:
-          base.onDropdownItemClick();
+        case 13: //enter
+          let active_item = this.querySelector("[data-content='menu'] .active");
+          if (active_item) {
+            input.value = active_item.getAttribute("data-title");
+            this._fireChange(active_item.getAttribute("data-value"));
+          } else {
+            this._fireChange(input.value);
+          }
+          this.classList.remove("open");
+
           break;
-        //Up Arrow
-        case 38:
-          base.keyNavigation('up', base.visibleScrollbar());
+        case 38: //arrow up
+          e.preventDefault();
+          this._navigateUp();
           break;
-        //Down Arrow
-        case 40:
-          base.keyNavigation('down', base.visibleScrollbar());
-          break;
-        //Shift
-        case 16:
-        case 20:
+        case 40: //arrow down
+          e.preventDefault();
+          this._navigateDown();
           break;
 
         default:
-          var value = this.getValue();
-          if (value.length >= base.getMinLength()) {
-            base.fireAutocompleteEvent(value);
+          if (config.autocomplete &&
+              input.value.length >= config.autocomplete.min_length) {
+            this._fireAutocomplete(input.value);
           } else {
-            base.closeDropdown();
+            this.classList.remove("open");
+            zDomUtil.clearChildren(this.querySelector("[data-content='menu']"));
           }
           break;
       }
     }, false);
 
-    window.addEventListener('click', function() {
-      base.closeDropdown();
-    }, false);
-
-  };
-
-  this.getMinLength = function() {
-    if (this.minLength && !isNaN(this.minLength)) {
-      return this.minLength;
-    }
-
-    return 1;
+    input.addEventListener("change", (e) => {
+      e.stopPropagation();
+    });
   }
 
-  this.setValue = function(val) {
-    var input = this.querySelector("z-input");
-    return input.setValue(val);
-  };
-
-  this.getValue = function() {
-    var input = this.querySelector("z-input");
-    return input.getValue();
-  };
-
-  this.getActiveListElem = function() {
-    var active_elem = this.querySelector("li.hover");
-
-    if (!active_elem) {
-      active_elem = this.querySelector("li[data-selected]");
-    }
-
-    return active_elem;
-  };
-
-  this.updateActiveElem = function(new_elem, old_elem) {
-    new_elem.classList.add('hover');
-
-    if (old_elem) {
-      old_elem.classList.remove('hover');
-    }
-  };
-
-  this.visibleScrollbar = function() {
-    var ul = this.querySelector("ul");
-
-    return ul.scrollHeight > ul.offsetHeight;
+  setPlaceholder(placeholder) {
+    this.querySelector("input").setAttribute("placeholder", placeholder);
   }
 
-  this.keyNavigation = function(direction, visibleScrollbar) {
-    var active_elem = this.getActiveListElem();
-    var new_elem;
-    var elems = this.querySelectorAll("li");
+  autocomplete(term, menu_items) {
+    if (term != this.querySelector("input").value) {
+      return;
+    }
 
-    if (active_elem) {
+    var menu_elem = this.querySelector("[data-content='menu']");
+    zDomUtil.clearChildren(menu_elem);
 
-      if (direction == 'down') {
-        new_elem = active_elem.nextElementSibling;
+    menu_items.forEach(function(item) {
+      var li_elem = document.createElement("li");
+      li_elem.setAttribute("data-value", item.value);
+      li_elem.setAttribute("data-title", zDomUtil.escapeHTML(item.title));
+      li_elem.innerHTML = zDomUtil.escapeHTML(item.title);
+      menu_elem.appendChild(li_elem);
+    });
 
-        if (!new_elem) {
-          //first elem
-          new_elem = elems[0];
+    this.classList.add("open");
+  }
 
-          if (visibleScrollbar) {
-            var ul = this.querySelector("ul");
-            ul.scrollTop = 0;
-          }
-
-        } else {
-
-          if (visibleScrollbar) {
-            var ul = this.querySelector("ul");
-            ul.scrollTop = ul.scrollTop + (ul.offsetHeight / elems.length);
-          }
-        }
-
-      } else {
-        new_elem = active_elem.previousElementSibling;
-
-        if (!new_elem) {
-          //last elem
-          new_elem = elems[elems.length - 1];
-
-          if (visibleScrollbar) {
-            var ul = this.querySelector("ul");
-            ul.scrollTop = ul.scrollHeight;
-          }
-
-        } else {
-
-          if (visibleScrollbar) {
-            var ul = this.querySelector("ul");
-            ul.scrollTop = ul.scrollTop - (ul.offsetHeight / elems.length);
-          }
-        }
+  _navigateDown() {
+    let current_elem = this.querySelector("[data-content='menu'] .active");
+    if (current_elem) {
+      if (current_elem.nextSibling) {
+        current_elem.classList.remove("active");
+        current_elem.nextSibling.classList.add("active");
       }
-
-      if (!new_elem) {
-        new_elem = active_elem;
-      }
-
-      active_elem.classList.remove('hover');
-
     } else {
-      //first elem
-      new_elem = elems[0];
-    }
-
-    new_elem.classList.add('hover');
-  };
-
-  this.submitSearch = function(value) {
-    var active_elem = this.getActiveListElem();
-    var input = this.querySelector("z-input");
-    var updateInput = true;
-
-    if (!value) {
-      if (active_elem) {
-        value = active_elem.textContent;
-      } else {
-        value = input.getValue();
-        updateInput = false;
+      let menu_items = this.querySelectorAll("[data-content='menu'] li");
+      if (menu_items.length > 0) {
+        menu_items[0].classList.add("active");
       }
     }
+  }
 
-    if (updateInput) {
-      input.setAttribute('data-value', value);
-    }
-
-    this.closeDropdown();
-    this.fireSubmitEvent(value);
-  };
-
-  this.createDropdownItem = function(item) {
-    var li = document.createElement("li");
-    li.innerHTML = item.query;
-
-    if (item.data_value) {
-      li.setAttribute('data-value', item.data_value);
-    }
-
-    return li;
-  };
-
-  this.onDropdownItemClick = function(item) {
-    if (item) {
-      this.submitSearch(item.textContent);
-    } else {
-      this.submitSearch();
-    }
-  };
-
-  this.renderDropdown = function(items) {
-    var base = this;
-    var list = this.querySelector("ul");
-    if (!list) {
-      list = document.createElement("ul");
-      this.appendChild(list);
-    }
-
-    list.innerHTML = "";
-    list.setAttribute('data-active', 'active');
-
-    items.map(function(item) {
-      var list_elem = base.createDropdownItem(item);
-      list.appendChild(list_elem);
-
-      list_elem.onclick = function(e) {
-        e.stopPropagation();
-        e.preventDefault();
-        base.onDropdownItemClick(this);
+  _navigateUp() {
+    let current_elem = this.querySelector("[data-content='menu'] .active");
+    if (current_elem) {
+      if (current_elem.previousSibling) {
+        current_elem.classList.remove("active");
+        current_elem.previousSibling.classList.add("active");
       }
-
-      list_elem.addEventListener('mouseover', function() {
-        var active_elem = base.getActiveListElem();
-        if (active_elem) {
-          active_elem.removeAttribute('data-selected');
-        }
-      }, false);
-    });
-  };
-
-  this.closeDropdown = function() {
-    var list = this.querySelector("ul");
-    if (list) {
-      list.removeAttribute('data-active');
     }
-  };
+  }
 
-  this.autocomplete = function(term, items) {
-    if (term.toLowerCase() == this.querySelector("z-input").getValue().toLowerCase() && items.length > 0) {
-      this.renderDropdown(items);
-    }
-  };
-
-  this.fireAutocompleteEvent = function(value) {
-    var autocompleteEvent = new CustomEvent('z-search-autocomplete', {
-      'detail' : {'value' : value},
+  _fireChange(value) {
+    let change_ev = new CustomEvent("change", {
+      bubbles: true,
       cancelable: true,
-      bubbles: true
+      detail: {value: value}
     });
 
-    this.dispatchEvent(autocompleteEvent);
-  };
+    this.dispatchEvent(change_ev);
+  }
 
-  this.fireSubmitEvent = function(value) {
-    var submitEvent = new CustomEvent('z-search-submit', {
-      'detail' : {'value' : value},
+  _fireAutocomplete(value) {
+    let ev = new CustomEvent("autocomplete", {
+      bubbles: true,
       cancelable: true,
-      bubbles: true
+      detail: {value: value}
     });
 
-    this.dispatchEvent(submitEvent);
-  };
-};
+    this.dispatchEvent(ev);
+  }
+}
 
-var proto = Object.create(HTMLElement.prototype);
-SearchComponent.apply(proto);
-document.registerElement("z-search", { prototype: proto });
+customElements.define("z-search", zSearch);
