@@ -33,6 +33,17 @@ html {
   font-size: 13px;
 }
 
+section {
+  padding-bottom: 38px;
+}
+
+section h2 {
+  color: #3A2F38;
+  font-size: 1.18em;
+  font-weight: 500;
+  line-height: 30px;
+}
+
 .page {
   display: flex;
   flex-direction: column;
@@ -47,4 +58,8 @@ z-menu {
 
 z-dropdown ul li {
   min-width: 100px;
+}
+
+z-search {
+  width: 300px;
 }

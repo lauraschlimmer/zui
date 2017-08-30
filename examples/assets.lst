@@ -5,6 +5,9 @@ components/z-dropdown/z-dropdown.css
 components/z-dropdown/z-dropdown.html
 components/z-dropdown/z-dropdown.js
 components/z-menu/z-menu.css
+components/z-search/z-search.css
+components/z-search/z-search.html
+components/z-search/z-search.js
 examples/examples.css
 examples/examples.html
 examples/examples.js
