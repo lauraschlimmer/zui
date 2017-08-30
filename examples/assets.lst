@@ -1,8 +1,10 @@
 examples/prelude.html
 util/z-template_util.js
+util/z-dom_util.js
 components/z-dropdown/z-dropdown.css
 components/z-dropdown/z-dropdown.html
 components/z-dropdown/z-dropdown.js
 components/z-menu/z-menu.css
 examples/examples.css
 examples/examples.html
+examples/examples.js

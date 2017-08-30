@@ -30,6 +30,7 @@ html {
   flex-direction: row;
   flex: 1;
   height: 100%;
+  font-size: 13px;
 }
 
 .page {
@@ -42,4 +43,8 @@ html {
 z-menu {
   background: #fafafa;
   font-size: 13px;
+}
+
+z-dropdown ul li {
+  min-width: 100px;
 }
