@@ -55,13 +55,21 @@ class zSearchExample {
   }
 }
 
+class zTabbableExample {
+  constructor(elem) {
+    let tabbable = elem.querySelector("z-tabbable");
+    tabbable.init();
+    tabbable.setActiveTab(1);
+  }
+}
+
 class zExamples {
   constructor(vport) {
     this.examples = [
         new zDropdownExample(vport),
-        new zSearchExample(vport)
+        new zSearchExample(vport),
+        new zTabbableExample(vport)
     ];
-
   }
 }
 

@@ -9,6 +9,8 @@ components/z-search/z-search.css
 components/z-search/z-search.html
 components/z-search/z-search.js
 components/z-button/z-button.css
+components/z-tabbable/z-tabbable.css
+components/z-tabbable/z-tabbable.js
 examples/examples.css
 examples/examples.html
 examples/examples.js
