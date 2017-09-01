@@ -63,7 +63,7 @@ class zSearch extends HTMLElement {
     var menu_elem = this.querySelector("[data-content='menu']");
     zDomUtil.clearChildren(menu_elem);
 
-    menu_items.forEach(function(item) {
+    menu_items.forEach((item) => {
       var li_elem = document.createElement("li");
       li_elem.setAttribute("data-value", item.value);
       li_elem.setAttribute("data-title", zDomUtil.escapeHTML(item.title));

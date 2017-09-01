@@ -15,7 +15,7 @@ class zDropdown extends HTMLElement {
 
     var menu_elem = this.querySelector("[data-content='menu']");
     let _this = this;
-    items.forEach(function(item) {
+    items.forEach((item) => {
       let li_elem = document.createElement("li");
       li_elem.setAttribute("data-value", item.value);
       li_elem.innerHTML = zDomUtil.escapeHTML(item.title);
@@ -27,7 +27,7 @@ class zDropdown extends HTMLElement {
 
   setValue(value) {
     /* set title */
-    var item = this.menu_items.find(function(i) {
+    var item = this.menu_items.find((i) => {
       return i.value == value;
     });
 
