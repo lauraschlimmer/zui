@@ -13,6 +13,9 @@ components/z-tabbable/z-tabbable.css
 components/z-tabbable/z-tabbable.js
 components/z-modal/z-modal.css
 components/z-modal/z-modal.js
+components/z-progressbar/z-progressbar.css
+components/z-progressbar/z-progressbar.html
+components/z-progressbar/z-progressbar.js
 examples/examples.css
 examples/examples.html
 examples/examples.js

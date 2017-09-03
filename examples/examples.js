@@ -73,13 +73,33 @@ class zModalExample {
   }
 }
 
+class zProgressBarExample {
+  constructor(elem) {
+    let progressbar = elem.querySelector("z-progressbar");
+    progressbar.render();
+    progressbar.setLabel("Uploading file...");
+
+    let progress = 0.0;
+    let interval_id = window.setInterval(() => {
+      progress += 0.1;
+      if (progress > 1) {
+        window.clearInterval(interval_id);
+        return;
+      }
+
+      progressbar.update(progress);
+    }, 500);
+  }
+}
+
 class zExamples {
   constructor(vport) {
     this.examples = [
         new zDropdownExample(vport),
         new zSearchExample(vport),
         new zTabbableExample(vport),
-        new zModalExample(vport)
+        new zModalExample(vport),
+        new zProgressBarExample(vport)
     ];
   }
 }
