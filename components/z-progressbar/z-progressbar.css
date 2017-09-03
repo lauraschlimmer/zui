@@ -1,60 +1,31 @@
-z-progressbar {
+z-progressbar,
+.z-progressbar {
   position: relative;
   display: block;
   max-width: 100%;
-  border: 1px solid rgba(39,41,43,.15);
-  margin: 1em 0 2.5em;
+  border: 1px solid #ddd;
   box-shadow: none;
-  background: rgba(0,0,0,.03);
-  padding: .2857em;
-  border-radius: .2857rem;
-  font-size: 1rem;
+  background: #fafafa;
+  padding: 3px;
+  border-radius: 3px;
+  font-size: 1em;
+  box-sizing: border-box;
 }
 
-z-progressbar[data-state='disabled'] {
-  opacity: .35;
-}
-
-z-progressbar[data-state='success'].bar {
-  background-color: #5bbd72!important;
-}
-
-z-progressbar[data-state='warning'].bar {
-  background-color: #f2c037!important;
-}
-
-z-progressbar[data-state='error'].bar {
-  background-color: #d95c5c!important;
-}
-
-z-progressbar[data-state='success'] .label {
-  color : #356e36;
-}
-
-z-progressbar[data-state='warning'] .label {
-  color : #825c01;
-}
-
-z-progressbar[data-state='error'] .label {
-  color : #d95c5c;
-}
-
-z-progressbar[data-state='unknown'] .bar {
-  width: 0;
-}
-
-z-progressbar .bar {
+z-progressbar .bar,
+.z-progressbar .bar {
   display: block;
-  height: 1.75em;
-  line-height: 1;
+  height: 1.6em;
+  line-height: 1.6em;
   position: relative;
   width: 0;
   min-width: 2em;
   background: #888;
-  border-radius: .2857rem;
+  border-radius: 3px;
 }
 
-z-progressbar .bar::after {
+z-progressbar .bar::after,
+.z-progressbar .bar::after{
   content: '';
   opacity: 0;
   position: absolute;
@@ -63,44 +34,9 @@ z-progressbar .bar::after {
   right: 0;
   bottom: 0;
   background: #fff;
-  border-radius: .2857rem;
+  border-radius: 3px;
   -webkit-animation: progress-active 2s ease infinite;
   animation: progress-active 2s ease infinite;
-}
-
-z-progressbar .bar > .progress {
-  white-space: nowrap;
-  position: absolute;
-  width: auto;
-  font-size: .9em;
-  top: 50%;
-  right: .5em;
-  left: auto;
-  bottom: auto;
-  color: rgba(255,255,255,.8);
-  text-shadow: none;
-  margin-top: -.5em;
-  font-weight: 700;
-  text-align: left;
-  font-family: Lato,'Helvetica Neue',Arial,Helvetica,sans-serif;
-  line-height: 1;
-}
-
-z-progressbar .label {
-  position: absolute;
-  width: 100%;
-  font-size: 1em;
-  top: 100%;
-  right: auto;
-  left: 0;
-  bottom: auto;
-  color: rgba(0,0,0,.8);
-  font-weight: 700;
-  text-shadow: none;
-  margin-top: .2em;
-  text-align: center;
-
-
 }
 
 @-webkit-keyframes progress-active {
@@ -124,3 +60,38 @@ z-progressbar .label {
     width: 100%;
   }
 }
+
+z-progressbar .bar > .progress {
+  white-space: nowrap;
+  position: absolute;
+  width: auto;
+  right: .5em;
+  left: auto;
+  bottom: auto;
+  color: #3A2F38;
+  font-weight: 500;
+  text-align: left;
+  line-height: 1em;
+  font-size: 0.9em;
+  top: 50%;
+  -ms-transform: translate(0,-50%);
+  -moz-transform:translate(0, -50%);
+  -webkit-transform: translate(0,-50%);
+   transform: translate(0,-50%);
+}
+
+z-progressbar .label {
+  position: absolute;
+  width: 100%;
+  font-size: 1em;
+  top: 100%;
+  right: auto;
+  left: 0;
+  bottom: auto;
+  color: #3A2F38;
+  font-weight: 500;
+  text-shadow: none;
+  margin-top: .5em;
+  text-align: center;
+}
+
