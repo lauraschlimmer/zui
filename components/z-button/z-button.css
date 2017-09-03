@@ -16,7 +16,7 @@ z-button,
 .z-button {
   outline: none;
   border: none;
-  color: rgba(0, 0, 0, 0.6);
+  color: #3A2F38;
   font-weight: 400;
   box-shadow: 0px 0px 0px 1px rgba(39, 41, 43, 0.15), 0px 1px 1px 0 rgba(0, 0, 0, 0.05);
   padding: 0 12px;
@@ -33,12 +33,12 @@ z-button,
 z-button:hover,
 .z-button:hover {
   background: #f9f9f9;
-  color: rgba(0, 0, 0, 0.8);
+  color: #3A2F38;
 }
 
 z-button:active,
 .z-button:active {
-  color: rgba(0, 0, 0, 0.9);
+  color: #444;
 }
 
 z-button:focus,

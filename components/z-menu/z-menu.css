@@ -17,11 +17,6 @@ z-menu,
   width: 168px;
 }
 
-z-menu.fullheight,
-.z-menu.fullheight {
-  height: 100%;
-}
-
 z-menu z-menu-section,
 .z-menu .z-menu-section {
   padding: 12px 0;
