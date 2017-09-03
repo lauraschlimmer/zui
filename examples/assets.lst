@@ -11,6 +11,8 @@ components/z-search/z-search.js
 components/z-button/z-button.css
 components/z-tabbable/z-tabbable.css
 components/z-tabbable/z-tabbable.js
+components/z-modal/z-modal.css
+components/z-modal/z-modal.js
 examples/examples.css
 examples/examples.html
 examples/examples.js

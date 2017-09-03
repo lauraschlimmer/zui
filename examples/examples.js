@@ -63,12 +63,23 @@ class zTabbableExample {
   }
 }
 
+class zModalExample {
+  constructor(elem) {
+    let modal = elem.querySelector("z-modal");
+    let ctrl = elem.querySelector("[data-control='display-modal']");
+    ctrl.addEventListener("click", (e) => {
+      modal.show();
+    }, false);
+  }
+}
+
 class zExamples {
   constructor(vport) {
     this.examples = [
         new zDropdownExample(vport),
         new zSearchExample(vport),
-        new zTabbableExample(vport)
+        new zTabbableExample(vport),
+        new zModalExample(vport)
     ];
   }
 }
